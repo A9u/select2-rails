@@ -4211,7 +4211,7 @@ S2.define('select2/dropdown/attachBody',[
 
     $watchers.on(scrollEvent, function (ev) {
       var position = $(this).data('select2-scroll-position');
-      $(this).scrollTop(position.y);
+      $(self).scrollTop(position.y);
     });
 
     $(window).on(scrollEvent + ' ' + resizeEvent + ' ' + orientationEvent,
@@ -5202,11 +5202,13 @@ S2.define('select2/core',[
     var self = this;
 
     this.$element.on('change.select2', function () {
-      self.dataAdapter.current(function (data) {
-        self.trigger('selection:update', {
-          data: data
+      if(self.dataAdapter != null) {
+        self.dataAdapter.current(function (data) {
+          self.trigger('selection:update', {
+            data: data
+          });
         });
-      });
+      }
     });
 
     this.$element.on('focus.select2', function (evt) {
